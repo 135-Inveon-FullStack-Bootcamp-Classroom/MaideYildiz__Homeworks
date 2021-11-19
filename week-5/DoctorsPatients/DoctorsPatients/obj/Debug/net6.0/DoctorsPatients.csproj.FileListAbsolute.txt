@@ -1,0 +1,15 @@
+E:\MaideYildiz__Homeworks\week-5\DoctorsPatients\DoctorsPatients\bin\Debug\net6.0\DoctorsPatients.exe
+E:\MaideYildiz__Homeworks\week-5\DoctorsPatients\DoctorsPatients\bin\Debug\net6.0\DoctorsPatients.deps.json
+E:\MaideYildiz__Homeworks\week-5\DoctorsPatients\DoctorsPatients\bin\Debug\net6.0\DoctorsPatients.runtimeconfig.json
+E:\MaideYildiz__Homeworks\week-5\DoctorsPatients\DoctorsPatients\bin\Debug\net6.0\DoctorsPatients.dll
+E:\MaideYildiz__Homeworks\week-5\DoctorsPatients\DoctorsPatients\bin\Debug\net6.0\ref\DoctorsPatients.dll
+E:\MaideYildiz__Homeworks\week-5\DoctorsPatients\DoctorsPatients\bin\Debug\net6.0\DoctorsPatients.pdb
+E:\MaideYildiz__Homeworks\week-5\DoctorsPatients\DoctorsPatients\obj\Debug\net6.0\DoctorsPatients.csproj.AssemblyReference.cache
+E:\MaideYildiz__Homeworks\week-5\DoctorsPatients\DoctorsPatients\obj\Debug\net6.0\DoctorsPatients.GeneratedMSBuildEditorConfig.editorconfig
+E:\MaideYildiz__Homeworks\week-5\DoctorsPatients\DoctorsPatients\obj\Debug\net6.0\DoctorsPatients.AssemblyInfoInputs.cache
+E:\MaideYildiz__Homeworks\week-5\DoctorsPatients\DoctorsPatients\obj\Debug\net6.0\DoctorsPatients.AssemblyInfo.cs
+E:\MaideYildiz__Homeworks\week-5\DoctorsPatients\DoctorsPatients\obj\Debug\net6.0\DoctorsPatients.csproj.CoreCompileInputs.cache
+E:\MaideYildiz__Homeworks\week-5\DoctorsPatients\DoctorsPatients\obj\Debug\net6.0\DoctorsPatients.dll
+E:\MaideYildiz__Homeworks\week-5\DoctorsPatients\DoctorsPatients\obj\Debug\net6.0\ref\DoctorsPatients.dll
+E:\MaideYildiz__Homeworks\week-5\DoctorsPatients\DoctorsPatients\obj\Debug\net6.0\DoctorsPatients.pdb
+E:\MaideYildiz__Homeworks\week-5\DoctorsPatients\DoctorsPatients\obj\Debug\net6.0\DoctorsPatients.genruntimeconfig.cache
