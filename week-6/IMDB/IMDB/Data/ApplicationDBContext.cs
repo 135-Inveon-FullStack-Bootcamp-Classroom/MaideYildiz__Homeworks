@@ -27,8 +27,8 @@ namespace IMDB
         }
         //public DbSet<ICrew> Crew { get; set; }
         public DbSet<Movie> Movies { get;set;}
-        public DbSet<Crew> Actors { get;set;}
-        public DbSet<Location> Writers { get;set;}
-        public DbSet<Review> Directors { get;set;}
+        public DbSet<Crew> Crew { get;set;}
+        public DbSet<Location> Location { get;set;}
+        public DbSet<Review> Review { get;set;}
     }
 }

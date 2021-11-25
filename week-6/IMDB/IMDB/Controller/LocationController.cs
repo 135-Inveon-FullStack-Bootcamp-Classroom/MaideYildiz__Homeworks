@@ -10,10 +10,10 @@ namespace IMDB.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MovieController : ControllerBase
+    public class LocationController : ControllerBase
     {
         private readonly ApplicationDBContext _dbContext;
-        public MovieController(ApplicationDBContext dBContext)
+        public LocationController(ApplicationDBContext dBContext)
         {
             _dbContext = dBContext;
         }
@@ -21,51 +21,47 @@ namespace IMDB.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var movies = _dbContext.Movies.ToList();
+            var movies = _dbContext.Location.ToList();
             return Ok(movies);
         }
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            var movies = _dbContext.Movies.ToList();
-            var idMovie= movies[0];
-            foreach (var movie in movies)
+            var locations = _dbContext.Location.ToList();
+            var idLocation = locations[0];
+            foreach (var l in locations)
             {
-                if(movie.Id == id)
+                if (l.LocationID == id)
                 {
-                    idMovie = movie;
+                    idLocation = l;
                 }
             }
-            return Ok(idMovie);
+            return Ok(idLocation);
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] Movie movie)
+        public IActionResult Post([FromBody] Location location)
         {
-            _dbContext.Movies.Add(movie);
+            _dbContext.Location.Add(location);
             _dbContext.SaveChanges();
             return Ok();
         }
 
         // PUT api/<MovieController>/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] Movie movie)
+        public IActionResult Put(int id, [FromBody] Location location)
         {
-            var movies = _dbContext.Movies.ToList();
-            var idMovie = movies[0];
-            foreach (var m in movies)
+            var locations = _dbContext.Location.ToList();
+            var idLocation = locations[0];
+            foreach (var l in locations)
             {
-                if (m.Id == id)
+                if (l.LocationID == id)
                 {
-                    idMovie = m;
+                    idLocation = l;
                 }
             }
-            idMovie.Name = movie.Name;
-            idMovie.Description = movie.Description;
-            idMovie.CreatedDate= movie.CreatedDate;
-            idMovie.MovieActors = movie.MovieActors;
-            idMovie.MovieLocations=movie.MovieLocations;
-            idMovie.MovieReviews = movie.MovieReviews;
+            idLocation.LocationName = location.LocationName;
+            idLocation.MovieLocations = location.MovieLocations;
             _dbContext.SaveChanges();
             return Ok();
         }
@@ -74,14 +70,14 @@ namespace IMDB.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var movies = _dbContext.Movies.ToList();
-            var idMovie = movies[0];
-            foreach (var movie in movies)
+            var locations = _dbContext.Location.ToList();
+            var idLocation = locations[0];
+            foreach (var l in locations)
             {
-                if (movie.Id == id)
+                if (l.LocationID == id)
                 {
-                    idMovie = movie;
-                    _dbContext.Movies.Remove(idMovie);
+                    idLocation = l;
+                    _dbContext.Location.Remove(idLocation);
                     _dbContext.SaveChanges();
                 }
             }
