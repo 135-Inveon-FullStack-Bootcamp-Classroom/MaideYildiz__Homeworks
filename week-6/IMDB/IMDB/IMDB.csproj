@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Entities\Location.cs~RF2a61fbb.TMP" />
+    <None Remove="Entities\Movie.cs~RF2a726ab.TMP" />
+    <None Remove="Entities\Review.cs~RF2a6d668.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.12" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.8">
       <PrivateAssets>all</PrivateAssets>
