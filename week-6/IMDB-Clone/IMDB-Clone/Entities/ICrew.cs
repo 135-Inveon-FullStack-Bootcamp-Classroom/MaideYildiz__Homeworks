@@ -7,6 +7,5 @@
         public string CrewSurname { get; set; }
         public int CrewAge { get; set; }
         public string CrewBio { get; set; }
-        public string[] CrewPrizes { get; set; }
     }
 }
