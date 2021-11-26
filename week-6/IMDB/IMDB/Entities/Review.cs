@@ -7,7 +7,7 @@ namespace IMDB.Entities
         public int ReviewID { get; set; }
         public string ReviewPerson { get; set; }
         public string ReviewText { get; set; }
-        public IList<Movie> MovieReviews { get; set; }
+        public ICollection<ReviewMovie> MovieReviews { get; set; }
 
     }
 }

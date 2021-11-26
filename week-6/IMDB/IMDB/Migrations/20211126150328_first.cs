@@ -9,7 +9,7 @@ namespace IMDB.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Actors",
+                name: "Crew",
                 columns: table => new
                 {
                     CrewID = table.Column<int>(type: "int", nullable: false)
@@ -21,21 +21,20 @@ namespace IMDB.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Actors", x => x.CrewID);
+                    table.PrimaryKey("PK_Crew", x => x.CrewID);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Directors",
+                name: "Location",
                 columns: table => new
                 {
-                    ReviewID = table.Column<int>(type: "int", nullable: false)
+                    LocationID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    ReviewPerson = table.Column<string>(type: "text", nullable: true),
-                    ReviewText = table.Column<string>(type: "text", nullable: true)
+                    LocationName = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Directors", x => x.ReviewID);
+                    table.PrimaryKey("PK_Location", x => x.LocationID);
                 });
 
             migrationBuilder.CreateTable(
@@ -54,128 +53,132 @@ namespace IMDB.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Writers",
+                name: "Review",
                 columns: table => new
                 {
-                    LocationID = table.Column<int>(type: "int", nullable: false)
+                    ReviewID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    LocationName = table.Column<string>(type: "text", nullable: true)
+                    ReviewPerson = table.Column<string>(type: "text", nullable: true),
+                    ReviewText = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Writers", x => x.LocationID);
+                    table.PrimaryKey("PK_Review", x => x.ReviewID);
                 });
 
             migrationBuilder.CreateTable(
-                name: "CrewMovie",
+                name: "CrewMovies",
                 columns: table => new
                 {
-                    MovieActorsCrewID = table.Column<int>(type: "int", nullable: false),
-                    MovieActorsId = table.Column<int>(type: "int", nullable: false)
+                    MovieId = table.Column<int>(type: "int", nullable: false),
+                    CrewId = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CrewMovie", x => new { x.MovieActorsCrewID, x.MovieActorsId });
+                    table.PrimaryKey("PK_CrewMovies", x => new { x.CrewId, x.MovieId });
                     table.ForeignKey(
-                        name: "FK_CrewMovie_Actors_MovieActorsCrewID",
-                        column: x => x.MovieActorsCrewID,
-                        principalTable: "Actors",
+                        name: "FK_CrewMovies_Crew_CrewId",
+                        column: x => x.CrewId,
+                        principalTable: "Crew",
                         principalColumn: "CrewID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CrewMovie_Movies_MovieActorsId",
-                        column: x => x.MovieActorsId,
+                        name: "FK_CrewMovies_Movies_MovieId",
+                        column: x => x.MovieId,
                         principalTable: "Movies",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "MovieReview",
+                name: "LocationMovies",
                 columns: table => new
                 {
-                    MovieReviewsId = table.Column<int>(type: "int", nullable: false),
-                    MovieReviewsReviewID = table.Column<int>(type: "int", nullable: false)
+                    MovieId = table.Column<int>(type: "int", nullable: false),
+                    LocationId = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MovieReview", x => new { x.MovieReviewsId, x.MovieReviewsReviewID });
+                    table.PrimaryKey("PK_LocationMovies", x => new { x.LocationId, x.MovieId });
                     table.ForeignKey(
-                        name: "FK_MovieReview_Directors_MovieReviewsReviewID",
-                        column: x => x.MovieReviewsReviewID,
-                        principalTable: "Directors",
-                        principalColumn: "ReviewID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_MovieReview_Movies_MovieReviewsId",
-                        column: x => x.MovieReviewsId,
-                        principalTable: "Movies",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "LocationMovie",
-                columns: table => new
-                {
-                    MovieLocationsId = table.Column<int>(type: "int", nullable: false),
-                    MovieLocationsLocationID = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_LocationMovie", x => new { x.MovieLocationsId, x.MovieLocationsLocationID });
-                    table.ForeignKey(
-                        name: "FK_LocationMovie_Movies_MovieLocationsId",
-                        column: x => x.MovieLocationsId,
-                        principalTable: "Movies",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_LocationMovie_Writers_MovieLocationsLocationID",
-                        column: x => x.MovieLocationsLocationID,
-                        principalTable: "Writers",
+                        name: "FK_LocationMovies_Location_LocationId",
+                        column: x => x.LocationId,
+                        principalTable: "Location",
                         principalColumn: "LocationID",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_LocationMovies_Movies_MovieId",
+                        column: x => x.MovieId,
+                        principalTable: "Movies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ReviewMovies",
+                columns: table => new
+                {
+                    MovieId = table.Column<int>(type: "int", nullable: false),
+                    ReviewId = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ReviewMovies", x => new { x.ReviewId, x.MovieId });
+                    table.ForeignKey(
+                        name: "FK_ReviewMovies_Movies_MovieId",
+                        column: x => x.MovieId,
+                        principalTable: "Movies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ReviewMovies_Review_ReviewId",
+                        column: x => x.ReviewId,
+                        principalTable: "Review",
+                        principalColumn: "ReviewID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_CrewMovie_MovieActorsId",
-                table: "CrewMovie",
-                column: "MovieActorsId");
+                name: "IX_CrewMovies_MovieId",
+                table: "CrewMovies",
+                column: "MovieId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_LocationMovie_MovieLocationsLocationID",
-                table: "LocationMovie",
-                column: "MovieLocationsLocationID");
+                name: "IX_LocationMovies_MovieId",
+                table: "LocationMovies",
+                column: "MovieId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MovieReview_MovieReviewsReviewID",
-                table: "MovieReview",
-                column: "MovieReviewsReviewID");
+                name: "IX_ReviewMovies_MovieId",
+                table: "ReviewMovies",
+                column: "MovieId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "CrewMovie");
+                name: "CrewMovies");
 
             migrationBuilder.DropTable(
-                name: "LocationMovie");
+                name: "LocationMovies");
 
             migrationBuilder.DropTable(
-                name: "MovieReview");
+                name: "ReviewMovies");
 
             migrationBuilder.DropTable(
-                name: "Actors");
+                name: "Crew");
 
             migrationBuilder.DropTable(
-                name: "Writers");
-
-            migrationBuilder.DropTable(
-                name: "Directors");
+                name: "Location");
 
             migrationBuilder.DropTable(
                 name: "Movies");
+
+            migrationBuilder.DropTable(
+                name: "Review");
         }
     }
 }

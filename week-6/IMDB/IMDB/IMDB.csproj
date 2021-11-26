@@ -8,6 +8,7 @@
     <None Remove="Entities\Location.cs~RF2a61fbb.TMP" />
     <None Remove="Entities\Movie.cs~RF2a726ab.TMP" />
     <None Remove="Entities\Review.cs~RF2a6d668.TMP" />
+    <None Remove="Program.cs~RF6dc7b2e.TMP" />
   </ItemGroup>
 
   <ItemGroup>
