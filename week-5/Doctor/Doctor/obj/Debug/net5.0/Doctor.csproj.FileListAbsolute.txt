@@ -1,0 +1,16 @@
+E:\MaideYildiz__Homeworks\week-5\Doctor\Doctor\bin\Debug\net5.0\Doctor.exe
+E:\MaideYildiz__Homeworks\week-5\Doctor\Doctor\bin\Debug\net5.0\Doctor.deps.json
+E:\MaideYildiz__Homeworks\week-5\Doctor\Doctor\bin\Debug\net5.0\Doctor.runtimeconfig.json
+E:\MaideYildiz__Homeworks\week-5\Doctor\Doctor\bin\Debug\net5.0\Doctor.runtimeconfig.dev.json
+E:\MaideYildiz__Homeworks\week-5\Doctor\Doctor\bin\Debug\net5.0\Doctor.dll
+E:\MaideYildiz__Homeworks\week-5\Doctor\Doctor\bin\Debug\net5.0\ref\Doctor.dll
+E:\MaideYildiz__Homeworks\week-5\Doctor\Doctor\bin\Debug\net5.0\Doctor.pdb
+E:\MaideYildiz__Homeworks\week-5\Doctor\Doctor\obj\Debug\net5.0\Doctor.csproj.AssemblyReference.cache
+E:\MaideYildiz__Homeworks\week-5\Doctor\Doctor\obj\Debug\net5.0\Doctor.GeneratedMSBuildEditorConfig.editorconfig
+E:\MaideYildiz__Homeworks\week-5\Doctor\Doctor\obj\Debug\net5.0\Doctor.AssemblyInfoInputs.cache
+E:\MaideYildiz__Homeworks\week-5\Doctor\Doctor\obj\Debug\net5.0\Doctor.AssemblyInfo.cs
+E:\MaideYildiz__Homeworks\week-5\Doctor\Doctor\obj\Debug\net5.0\Doctor.csproj.CoreCompileInputs.cache
+E:\MaideYildiz__Homeworks\week-5\Doctor\Doctor\obj\Debug\net5.0\Doctor.dll
+E:\MaideYildiz__Homeworks\week-5\Doctor\Doctor\obj\Debug\net5.0\ref\Doctor.dll
+E:\MaideYildiz__Homeworks\week-5\Doctor\Doctor\obj\Debug\net5.0\Doctor.pdb
+E:\MaideYildiz__Homeworks\week-5\Doctor\Doctor\obj\Debug\net5.0\Doctor.genruntimeconfig.cache
