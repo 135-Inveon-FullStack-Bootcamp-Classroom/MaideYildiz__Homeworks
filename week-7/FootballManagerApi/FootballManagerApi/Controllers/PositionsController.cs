@@ -26,7 +26,7 @@ namespace FootballManagerApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Position>>> GetPositions()
         {
-            return Ok(_positionService.GetAllAsync());
+            return Ok(await _positionService.GetAllAsync());
         }
 
         // GET: api/Positions/5
