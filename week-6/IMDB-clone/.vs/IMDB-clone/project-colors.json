@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "41732d2a-0967-421c-af63-89cb9f27e3c4": {
+      "ProjectGuid": "41732d2a-0967-421c-af63-89cb9f27e3c4",
+      "DisplayName": "IMDB-clone",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}

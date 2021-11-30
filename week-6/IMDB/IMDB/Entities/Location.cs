@@ -6,6 +6,6 @@ namespace IMDB.Entities
     {
         public int LocationID { get; set; }
         public string LocationName { get; set; }
-        public ICollection<LocationMovie> MovieLocations { get; set; }
+        public ICollection<Movie> MovieLocations { get; set; }
     }
 }

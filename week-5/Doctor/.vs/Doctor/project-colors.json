@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "739b3aca-ca17-4dd7-97d4-7270d35c61b4": {
+      "ProjectGuid": "739b3aca-ca17-4dd7-97d4-7270d35c61b4",
+      "DisplayName": "Doctor",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}

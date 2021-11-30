@@ -11,8 +11,8 @@ namespace IMDB.Entities
         public string Name { get; set; }
         public string Description { get; set; }
         public DateTime CreatedDate { get; set; }
-        public ICollection<CrewMovie> MovieActors { get; set; }
-        public ICollection<LocationMovie> MovieLocations { get; set; }
-        public ICollection<ReviewMovie> MovieReviews { get; set; }
+        public ICollection<Crew> MovieActors { get; set; }
+        public ICollection<Location> MovieLocations { get; set; }
+        public ICollection<Review> MovieReviews { get; set; }
     }
 }

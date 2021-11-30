@@ -3,6 +3,7 @@ using System;
 using IMDB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace IMDB.Migrations
@@ -14,96 +15,82 @@ namespace IMDB.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Relational:MaxIdentifierLength", 64)
-                .HasAnnotation("ProductVersion", "5.0.12");
+                .HasAnnotation("Relational:MaxIdentifierLength", 128)
+                .HasAnnotation("ProductVersion", "5.0.8")
+                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("CrewMovie", b =>
+                {
+                    b.Property<int>("MovieActorsCrewID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MovieActorsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("MovieActorsCrewID", "MovieActorsId");
+
+                    b.HasIndex("MovieActorsId");
+
+                    b.ToTable("CrewMovie");
+                });
 
             modelBuilder.Entity("IMDB.Entities.Crew", b =>
                 {
                     b.Property<int>("CrewID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("CrewAge")
                         .HasColumnType("int");
 
                     b.Property<string>("CrewBio")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CrewName")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CrewSurname")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("crewType")
+                        .HasColumnType("int");
 
                     b.HasKey("CrewID");
 
                     b.ToTable("Crew");
                 });
 
-            modelBuilder.Entity("IMDB.Entities.CrewMovie", b =>
-                {
-                    b.Property<int>("CrewId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MovieId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.HasKey("CrewId", "MovieId");
-
-                    b.HasIndex("MovieId");
-
-                    b.ToTable("CrewMovies");
-                });
-
             modelBuilder.Entity("IMDB.Entities.Location", b =>
                 {
                     b.Property<int>("LocationID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("LocationName")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("LocationID");
 
                     b.ToTable("Location");
                 });
 
-            modelBuilder.Entity("IMDB.Entities.LocationMovie", b =>
-                {
-                    b.Property<int>("LocationId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MovieId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.HasKey("LocationId", "MovieId");
-
-                    b.HasIndex("MovieId");
-
-                    b.ToTable("LocationMovies");
-                });
-
             modelBuilder.Entity("IMDB.Entities.Movie", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -114,116 +101,93 @@ namespace IMDB.Migrations
                 {
                     b.Property<int>("ReviewID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ReviewPerson")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ReviewText")
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ReviewID");
 
                     b.ToTable("Review");
                 });
 
-            modelBuilder.Entity("IMDB.Entities.ReviewMovie", b =>
+            modelBuilder.Entity("LocationMovie", b =>
                 {
-                    b.Property<int>("ReviewId")
+                    b.Property<int>("MovieLocationsId")
                         .HasColumnType("int");
 
-                    b.Property<int>("MovieId")
+                    b.Property<int>("MovieLocationsLocationID")
                         .HasColumnType("int");
 
-                    b.Property<int>("Id")
+                    b.HasKey("MovieLocationsId", "MovieLocationsLocationID");
+
+                    b.HasIndex("MovieLocationsLocationID");
+
+                    b.ToTable("LocationMovie");
+                });
+
+            modelBuilder.Entity("MovieReview", b =>
+                {
+                    b.Property<int>("MovieReviewsId")
                         .HasColumnType("int");
 
-                    b.HasKey("ReviewId", "MovieId");
+                    b.Property<int>("MovieReviewsReviewID")
+                        .HasColumnType("int");
 
-                    b.HasIndex("MovieId");
+                    b.HasKey("MovieReviewsId", "MovieReviewsReviewID");
 
-                    b.ToTable("ReviewMovies");
+                    b.HasIndex("MovieReviewsReviewID");
+
+                    b.ToTable("MovieReview");
                 });
 
-            modelBuilder.Entity("IMDB.Entities.CrewMovie", b =>
+            modelBuilder.Entity("CrewMovie", b =>
                 {
-                    b.HasOne("IMDB.Entities.Crew", "crew")
-                        .WithMany("MovieActors")
-                        .HasForeignKey("CrewId")
+                    b.HasOne("IMDB.Entities.Crew", null)
+                        .WithMany()
+                        .HasForeignKey("MovieActorsCrewID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("IMDB.Entities.Movie", "movie")
-                        .WithMany("MovieActors")
-                        .HasForeignKey("MovieId")
+                    b.HasOne("IMDB.Entities.Movie", null)
+                        .WithMany()
+                        .HasForeignKey("MovieActorsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("LocationMovie", b =>
+                {
+                    b.HasOne("IMDB.Entities.Movie", null)
+                        .WithMany()
+                        .HasForeignKey("MovieLocationsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("crew");
-
-                    b.Navigation("movie");
+                    b.HasOne("IMDB.Entities.Location", null)
+                        .WithMany()
+                        .HasForeignKey("MovieLocationsLocationID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
-            modelBuilder.Entity("IMDB.Entities.LocationMovie", b =>
+            modelBuilder.Entity("MovieReview", b =>
                 {
-                    b.HasOne("IMDB.Entities.Location", "location")
-                        .WithMany("MovieLocations")
-                        .HasForeignKey("LocationId")
+                    b.HasOne("IMDB.Entities.Movie", null)
+                        .WithMany()
+                        .HasForeignKey("MovieReviewsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("IMDB.Entities.Movie", "movie")
-                        .WithMany("MovieLocations")
-                        .HasForeignKey("MovieId")
+                    b.HasOne("IMDB.Entities.Review", null)
+                        .WithMany()
+                        .HasForeignKey("MovieReviewsReviewID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("location");
-
-                    b.Navigation("movie");
-                });
-
-            modelBuilder.Entity("IMDB.Entities.ReviewMovie", b =>
-                {
-                    b.HasOne("IMDB.Entities.Movie", "movie")
-                        .WithMany("MovieReviews")
-                        .HasForeignKey("MovieId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("IMDB.Entities.Review", "review")
-                        .WithMany("MovieReviews")
-                        .HasForeignKey("ReviewId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("movie");
-
-                    b.Navigation("review");
-                });
-
-            modelBuilder.Entity("IMDB.Entities.Crew", b =>
-                {
-                    b.Navigation("MovieActors");
-                });
-
-            modelBuilder.Entity("IMDB.Entities.Location", b =>
-                {
-                    b.Navigation("MovieLocations");
-                });
-
-            modelBuilder.Entity("IMDB.Entities.Movie", b =>
-                {
-                    b.Navigation("MovieActors");
-
-                    b.Navigation("MovieLocations");
-
-                    b.Navigation("MovieReviews");
-                });
-
-            modelBuilder.Entity("IMDB.Entities.Review", b =>
-                {
-                    b.Navigation("MovieReviews");
                 });
 #pragma warning restore 612, 618
         }
