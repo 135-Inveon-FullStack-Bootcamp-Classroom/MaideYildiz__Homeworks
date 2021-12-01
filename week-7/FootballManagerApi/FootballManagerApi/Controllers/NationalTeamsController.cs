@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using FootballManagerApi.Data;
 using FootballManagerApi.Entities;
 using FootballManagerApi.ServiceImplementations;
+using FootballManagerApi.UnitOfWork;
 
 namespace FootballManagerApi.Controllers
 {
@@ -15,25 +16,25 @@ namespace FootballManagerApi.Controllers
     [ApiController]
     public class NationalTeamsController : ControllerBase
     {
-        private readonly NationalTeamService _nationalTeamService;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public NationalTeamsController(ApplicationDbContext context)
+        public NationalTeamsController(IUnitOfWork unitOfWork)
         {
-            _nationalTeamService = new NationalTeamService(context);    
+            _unitOfWork = unitOfWork;
         }
 
         // GET: api/NationalTeams
         [HttpGet]
         public async Task<ActionResult<IEnumerable<NationalTeam>>> GetNationalTeams()
         {
-            return Ok(await _nationalTeamService.GetAllAsync());
+            return Ok(await _unitOfWork.NationalTeamService.GetAllAsync());
         }
 
         // GET: api/NationalTeams/5
         [HttpGet("{id}")]
         public async Task<ActionResult<NationalTeam>> GetNationalTeam(int id)
         {
-            return await _nationalTeamService.GetAsync(id);
+            return await _unitOfWork.NationalTeamService.GetAsync(id);
         }
 
         // PUT: api/NationalTeams/5
@@ -41,7 +42,7 @@ namespace FootballManagerApi.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutNationalTeam(int id, NationalTeam nationalTeam)
         {
-            await _nationalTeamService.UpdateAsync(id,nationalTeam);
+            await _unitOfWork.NationalTeamService.UpdateAsync(id,nationalTeam);
             return NoContent();
         }
 
@@ -50,7 +51,7 @@ namespace FootballManagerApi.Controllers
         [HttpPost]
         public async Task<ActionResult<NationalTeam>> PostNationalTeam(NationalTeam nationalTeam)
         {
-            await _nationalTeamService.CreateAsync(nationalTeam);
+            await _unitOfWork.NationalTeamService.CreateAsync(nationalTeam);
             return CreatedAtAction("GetNationalTeam", new { id = nationalTeam.Id }, nationalTeam);
         }
 
@@ -58,7 +59,7 @@ namespace FootballManagerApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteNationalTeam(int id)
         {
-            await _nationalTeamService.DeleteAsync(id);
+            await _unitOfWork.NationalTeamService.DeleteAsync(id);
             return NoContent();
         }
     }

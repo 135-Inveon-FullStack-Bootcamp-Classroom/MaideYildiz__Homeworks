@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using FootballManagerApi.Data;
 using FootballManagerApi.Entities;
 using FootballManagerApi.ServiceImplementations;
+using FootballManagerApi.UnitOfWork;
 
 namespace FootballManagerApi.Controllers
 {
@@ -15,25 +16,25 @@ namespace FootballManagerApi.Controllers
     [ApiController]
     public class PositionsController : ControllerBase
     {
-        private readonly PositionService _positionService;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public PositionsController(ApplicationDbContext context)
+        public PositionsController(IUnitOfWork unitOfWork)
         {
-            _positionService = new PositionService(context);
+            _unitOfWork = unitOfWork;
         }
 
         // GET: api/Positions
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Position>>> GetPositions()
         {
-            return Ok(await _positionService.GetAllAsync());
+            return Ok(await _unitOfWork.PositionService.GetAllAsync());
         }
 
         // GET: api/Positions/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Position>> GetPosition(int id)
         {
-            return await _positionService.GetAsync(id);
+            return await _unitOfWork.PositionService.GetAsync(id);
         }
 
         // PUT: api/Positions/5
@@ -41,7 +42,7 @@ namespace FootballManagerApi.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPosition(int id, Position position)
         {
-            await _positionService.UpdateAsync(id, position);
+            await _unitOfWork.PositionService.UpdateAsync(id, position);
             return NoContent();
         }
 
@@ -50,7 +51,7 @@ namespace FootballManagerApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Position>> PostPosition(Position position)
         {
-            await _positionService.CreateAsync(position);
+            await _unitOfWork.PositionService.CreateAsync(position);
             return CreatedAtAction("GetPosition", new { id = position.Id }, position);
         }
 
@@ -58,7 +59,7 @@ namespace FootballManagerApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePosition(int id)
         {
-            await _positionService.DeleteAsync(id);
+            await _unitOfWork.PositionService.DeleteAsync(id);
             return NoContent();
         }
 

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using FootballManagerApi.Data;
 using FootballManagerApi.Entities;
 using FootballManagerApi.ServiceImplementations;
+using FootballManagerApi.UnitOfWork;
 
 namespace FootballManagerApi.Controllers
 {
@@ -15,25 +16,25 @@ namespace FootballManagerApi.Controllers
     [ApiController]
     public class CoachesController : ControllerBase
     {
-        private readonly CoachService _coachService;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public CoachesController(ApplicationDbContext context)
+        public CoachesController(IUnitOfWork unitOfWork)
         {
-            _coachService = new CoachService(context);
+            _unitOfWork = unitOfWork;
         }
 
         // GET: api/Coaches
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Coach>>> GetCoaches()
         {
-            return Ok(await _coachService.GetAllAsync());
+            return Ok(await _unitOfWork.CoachService.GetAllAsync());
         }
 
         // GET: api/Coaches/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Coach>> GetCoach(int id)
         {
-            return await _coachService.GetAsync(id);
+            return await _unitOfWork.CoachService.GetAsync(id);
         }
 
         // PUT: api/Coaches/5
@@ -41,7 +42,7 @@ namespace FootballManagerApi.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCoach(int id, Coach coach)
         {
-            await _coachService.UpdateAsync(id, coach);
+            await _unitOfWork.CoachService.UpdateAsync(id, coach);
             return NoContent();
         }
 
@@ -50,7 +51,7 @@ namespace FootballManagerApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Coach>> PostCoach(Coach coach)
         {
-            await _coachService.CreateAsync(coach);
+            await _unitOfWork.CoachService.CreateAsync(coach);
             return CreatedAtAction("GetCoach", new { id = coach.Id }, coach);
         }
 
@@ -58,7 +59,7 @@ namespace FootballManagerApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCoach(int id)
         {
-            await _coachService.DeleteAsync(id);
+            await _unitOfWork.CoachService.DeleteAsync(id);
             return NoContent();
         }
 

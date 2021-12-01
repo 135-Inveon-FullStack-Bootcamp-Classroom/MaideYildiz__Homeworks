@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using FootballManagerApi.Data;
 using FootballManagerApi.Entities;
 using FootballManagerApi.ServiceImplementations;
+using FootballManagerApi.UnitOfWork;
 
 namespace FootballManagerApi.Controllers
 {
@@ -15,25 +16,25 @@ namespace FootballManagerApi.Controllers
     [ApiController]
     public class ManagersController : ControllerBase
     {
-        private readonly ManagerService _managerService;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public ManagersController(ApplicationDbContext context)
+        public ManagersController(IUnitOfWork unitOfWork)
         {
-            _managerService = new ManagerService(context);
+            _unitOfWork = unitOfWork;
         }
 
         // GET: api/Managers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Manager>>> GetManagers()
         {
-            return Ok(await _managerService.GetAllAsync());
+            return Ok(await _unitOfWork.ManagerService.GetAllAsync());
         }
 
         // GET: api/Managers/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Manager>> GetManager(int id)
         {
-            return await _managerService.GetAsync(id);
+            return await _unitOfWork.ManagerService.GetAsync(id);
         }
 
         // PUT: api/Managers/5
@@ -41,7 +42,7 @@ namespace FootballManagerApi.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutManager(int id, Manager manager)
         {
-            await _managerService.UpdateAsync(id,manager);
+            await _unitOfWork.ManagerService.UpdateAsync(id,manager);
             return NoContent();
         }
 
@@ -50,7 +51,7 @@ namespace FootballManagerApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Manager>> PostManager(Manager manager)
         {
-            await _managerService.CreateAsync(manager);
+            await _unitOfWork.ManagerService.CreateAsync(manager);
             return CreatedAtAction("GetManager", new { id = manager.Id }, manager);
         }
 
@@ -58,7 +59,7 @@ namespace FootballManagerApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteManager(int id)
         {
-            await _managerService.DeleteAsync(id);
+            await _unitOfWork.ManagerService.DeleteAsync(id);
             return NoContent();
         } 
     }

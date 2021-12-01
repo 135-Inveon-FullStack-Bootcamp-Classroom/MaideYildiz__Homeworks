@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using FootballManagerApi.Data;
 using FootballManagerApi.Entities;
 using FootballManagerApi.ServiceImplementations;
+using FootballManagerApi.UnitOfWork;
 
 namespace FootballManagerApi.Controllers
 {
@@ -15,25 +16,25 @@ namespace FootballManagerApi.Controllers
     [ApiController]
     public class TeamsController : ControllerBase
     {
-        private readonly TeamService _teamService;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public TeamsController(ApplicationDbContext context)
+        public TeamsController(IUnitOfWork unitOfWork)
         {
-            _teamService = new TeamService(context);
+            _unitOfWork = unitOfWork;
         }
 
         // GET: api/Teams
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Team>>> GetTeams()
         {
-            return Ok(await _teamService.GetAllAsync());
+            return Ok(await _unitOfWork.TeamService.GetAllAsync());
         }
 
         // GET: api/Teams/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Team>> GetTeam(int id)
         {
-            var team = await _teamService.GetAsync(id);
+            var team = await _unitOfWork.TeamService.GetAsync(id);
 
             if (team == null)
             {
@@ -48,7 +49,7 @@ namespace FootballManagerApi.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTeam(int id, Team team)
         {
-            await _teamService.UpdateAsync(id, team);
+            await _unitOfWork.TeamService.UpdateAsync(id, team);
             return NoContent();
         }
 
@@ -57,7 +58,7 @@ namespace FootballManagerApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Team>> PostTeam(Team team)
         {
-            await _teamService.CreateAsync(team);
+            await _unitOfWork.TeamService.CreateAsync(team);
 
             return CreatedAtAction("GetTeam", new { id = team.Id }, team);
         }
@@ -66,7 +67,7 @@ namespace FootballManagerApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTeam(int id)
         {
-            await _teamService.DeleteAsync(id);
+            await _unitOfWork.TeamService.DeleteAsync(id);
             return NoContent();
         }
 

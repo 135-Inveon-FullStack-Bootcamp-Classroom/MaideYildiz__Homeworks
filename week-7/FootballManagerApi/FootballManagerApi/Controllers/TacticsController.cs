@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using FootballManagerApi.Data;
 using FootballManagerApi.Entities;
 using FootballManagerApi.ServiceImplementations;
+using FootballManagerApi.UnitOfWork;
 
 namespace FootballManagerApi.Controllers
 {
@@ -15,25 +16,25 @@ namespace FootballManagerApi.Controllers
     [ApiController]
     public class TacticsController : ControllerBase
     {
-        private readonly TacticService _tacticService;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public TacticsController(ApplicationDbContext context)
+        public TacticsController(IUnitOfWork unitOfWork)
         {
-            _tacticService = new TacticService(context);
+            _unitOfWork = unitOfWork;
         }
 
         // GET: api/Tactics
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Tactic>>> GetTactics()
         {
-            return Ok(await _tacticService.GetAllAsync());
+            return Ok(await _unitOfWork.TacticService.GetAllAsync());
         }
 
         // GET: api/Tactics/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Tactic>> GetTactic(int id)
         {
-            return await _tacticService.GetAsync(id);
+            return await _unitOfWork.TacticService.GetAsync(id);
         }
 
         // PUT: api/Tactics/5
@@ -41,7 +42,7 @@ namespace FootballManagerApi.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTactic(int id, Tactic tactic)
         {
-            await _tacticService.UpdateAsync(id,tactic);
+            await _unitOfWork.TacticService.UpdateAsync(id,tactic);
             return NoContent();
         }
 
@@ -50,7 +51,7 @@ namespace FootballManagerApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Tactic>> PostTactic(Tactic tactic)
         {
-            await _tacticService.CreateAsync(tactic);
+            await _unitOfWork.TacticService.CreateAsync(tactic);
             return CreatedAtAction("GetTactic", new { id = tactic.Id }, tactic);
         }
 
@@ -58,7 +59,7 @@ namespace FootballManagerApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTactic(int id)
         {
-            await _tacticService.DeleteAsync(id);
+            await _unitOfWork.TacticService.DeleteAsync(id);
             return NoContent();
         }
 

@@ -1,9 +1,7 @@
 using FootballManagerApi.Data;
 using FootballManagerApi.ServiceAbstracts;
 using FootballManagerApi.ServiceImplementations;
-//using FootballManagerApi.ServiceAbstracts;
-//using FootballManagerApi.ServiceImplementations;
-//using FootballManagerApi.UnitOfWork;
+using FootballManagerApi.UnitOfWork;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -27,9 +25,14 @@ namespace FootballManagerApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<ITeamService, TeamService>();
-            //services.AddScoped<IFootballerService, FootballerService>();
+            services.AddScoped<IFootballerService, FootballerService>();
+            services.AddScoped<IManagerService, ManagerService>();
+            services.AddScoped<ICoachService, CoachService>();
+            services.AddScoped<INationalTeamService, NationalTeamService>();
+            services.AddScoped<IPositionService, PositionService>();
+            services.AddScoped<ITacticService, TacticService>();
 
-            //services.AddScoped<IUnitOfWork, UnitOfWork.UnitOfWork>();
+            services.AddScoped<IUnitOfWork, UnitOfWork.UnitOfWork>();
 
             //lifetimes -> Transient, Scoped, Singleton
 
