@@ -43,6 +43,15 @@ namespace FootballManagerApi.Controllers
         public async Task<IActionResult> PutNationalTeam(int id, NationalTeam nationalTeam)
         {
             await _unitOfWork.NationalTeamService.UpdateAsync(id,nationalTeam);
+
+  _dbContext.Footballers.Add(footballer);
+            _dbContext.Poisitions.Add(position)
+            // ...
+            // kazandığı kupaları ekle
+            // maç istatisitklerini ekle
+
+            _dbContext.saveChanges();
+
             return NoContent();
         }
 

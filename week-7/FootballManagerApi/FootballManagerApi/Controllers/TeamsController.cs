@@ -63,6 +63,21 @@ namespace FootballManagerApi.Controllers
             return CreatedAtAction("GetTeam", new { id = team.Id }, team);
         }
 
+                //// POST: api/Teams
+        //// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPost("{id}/footballers")]
+        public async Task<ActionResult<Team>> PostTeam(Footballer footballer, Position position)
+        {
+            _dbContext.Footballers.Add(footballer);
+            _dbContext.Poisitions.Add(position)
+            // ...
+            // kazandığı kupaları ekle
+            // maç istatisitklerini ekle
+
+            _dbContext.saveChanges();
+        }
+
+
         // DELETE: api/Teams/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTeam(int id)

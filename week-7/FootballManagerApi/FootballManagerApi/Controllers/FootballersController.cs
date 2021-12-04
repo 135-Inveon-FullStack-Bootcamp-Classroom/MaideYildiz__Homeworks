@@ -52,6 +52,15 @@ namespace FootballManagerApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Footballer>> PostFootballer(Footballer footballer)
         {
+              _dbContext.Footballers.Add(footballer);
+            _dbContext.Poisitions.Add(position)
+            // ...
+            // kazandığı kupaları ekle
+            // maç istatisitklerini ekle
+
+            _dbContext.saveChanges();
+
+
             await _unitOfWork.FootballerService.CreateAsync(footballer);
 
             return CreatedAtAction("GetFootballer", new { id = footballer.Id }, footballer);
